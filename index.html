@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<style>
+  .main-card {
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(94, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    padding: 16px;
+    margin: 16px;
+    border-radius: 8px;
+    height: 52vh;
+    width: 50vw;
+    margin-top: 72px;
+    color: white;
+  }
+
+  .small-card-1 {
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(94, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    padding: 16px;
+    margin: 16px;
+    margin-left: 0px;
+    border-radius: 8px;
+    height: 52vh;
+    width: 25vw;
+    margin-top: 72px;
+    color: white;
+  }
+
+  .graph-card {
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(94, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    padding: 16px;
+    margin: 16px;
+    border-radius: 8px;
+    height: 60vh;
+    width: 97vw;
+    margin-top: 0px;
+    color: white;
+  }
+</style>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Weather</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.linkedin.com/in/shashank-sola/" target="_blank">About</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" id="nycWeather">New York</a></li>
+              <li><a class="dropdown-item" id="delhiWeather">Delhi</a></li>
+              <li><a class="dropdown-item" id="shangaiWeather">Shangai</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" placeholder="Location" type="search" id="searchElement">
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="d-flex flex-row">
+    <div id="mainCurrent" class="main-card">
+      <div class="d-flex">
+        <div class="flex-grow-1">
+          <h1 id="localityHeading">--</h1>
+          <p id="regionCountry">--, --</p>
+        </div>
+        <div class="">
+          <h1 id="locationTemperature" style="font-size: 52px;">
+            --°C
+          </h1>
+          <p>Feels like <span style="font-weight: bolder;" id="temperatureApparent">--°C</span></p>
+        </div>
+      </div>
+      <hr>
+      <div class="d-flex">
+        <div class="flex-fill text-center mt-2">
+          <img width="75" height="75" src="https://img.icons8.com/ios-filled/100/FFFFFF/moisture.png" alt="moisture" />
+          <h5 class="mt-2">Humidity</h5>
+          <p id="humidity">--</p>
+        </div>
+        <div class="flex-fill text-center mt-2">
+          <img width="75" height="75" src="https://img.icons8.com/dotty/80/FFFFFF/barometer-gauge.png"
+            alt="barometer-gauge" />
+          <h5 class="mt-2">Pressure</h5>
+          <p id="pressureSurfaceLevel">---.--</p>
+        </div>
+        <div class="flex-fill text-center mt-2">
+          <img width="75" height="75" src="https://img.icons8.com/ios-filled/100/FFFFFF/sky.png" alt="sky" />
+          <h5 class="mt-2">Cloud Coverage</h5>
+          <p id="cloudCover">---%</p>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-row">
+      <div class="small-card-1 text-center">
+        <img width="75" height="75"
+          src="https://img.icons8.com/external-justicon-lineal-justicon/64/FFFFFF/external-uv-index-weather-justicon-lineal-justicon-1.png"
+          alt="external-uv-index-weather-justicon-lineal-justicon-1" />
+        <h3>
+          UV Index <span style="font-weight: 800;" id="uvIndex">-</span>
+        </h3>
+        <p id="uvIndexText">
+          At this level of UV index, the sun's ultraviolet radiation is minimal, and the risk of harm to your skin and
+          eyes is low. While it's generally safe to be outdoors without protective measures, it's still a good idea to
+          wear sunscreen and sunglasses to shield yourself from any potential UV exposure, especially if you have
+          sensitive skin.
+        </p>
+      </div>
+      <div class="small-card-1 text-center">
+        <img width="75" height="75" src="https://img.icons8.com/pastel-glyph/64/FFFFFF/wind--v1.png" alt="wind--v1" />
+        <h3>Wind Speed</h3>
+        <h1 id="windSpeed">-- Kmph</h1>
+        <hr>
+        <img width="75" height="75" src="https://img.icons8.com/ios/100/FFFFFF/arrow--v1.png" alt="arrow--v1" />
+        <h3>Wind Direction</h3>
+        <h1 id="windDirection">---</h1>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="graph-card">
+    <div id="chart_div" style="width: 100%; height: 500px;">
+
+    </div>
+  </div>
+  <hr>
+  <p style="margin-left: 16px;">Project by <a href="https://www.linkedin.com/in/shashank-sola/" target="_blank">Shashank Sola</a></p>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+  <script>
+    let searchElement = document.getElementById("searchElement");
+    let localityHeading = document.getElementById("localityHeading");
+    let regionCountry = document.getElementById("regionCountry");
+    let locationTemperature = document.getElementById("locationTemperature");
+    let temperatureApparent = document.getElementById("temperatureApparent")
+    let humidity = document.getElementById("humidity");
+    let cloudCover = document.getElementById("cloudCover");
+    let pressureSurfaceLevel = document.getElementById("pressureSurfaceLevel");
+    let uvIndex = document.getElementById("uvIndex");
+    let uvIndexText = document.getElementById("uvIndexText");
+    let windDirection = document.getElementById("windDirection");
+    let windSpeed = document.getElementById("windSpeed");
+
+    function fiveDayTimeline(arr) {
+      let temps = [];
+      let times = [];
+      for (elm of arr) {
+        temps.push(elm.values.temperature);
+        let time = elm.time;
+        times.push(Number(time.slice(11, 13)));
+      }
+      console.log(times);
+      let combArr = [["Time", "Temperature"]];
+      for (let i = 0; i <= 24; i++) {
+        combArr.push([times[i], temps[i],])
+      }
+      let min_temp = Math.min(temps)
+
+      google.charts.load('current', { 'packages': ['corechart'] });
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(combArr);
+
+        var options = {
+          title: 'Hour wise Temperature',
+          hAxis: { title: 'Hour', titleTextStyle: { color: 'white', fontSize: 36 }, viewWindow: 2, textStyle: {color: 'white'} },
+          vAxis: { title: 'Temperature',minValue: min_temp, titleTextStyle: {color: 'white', fontSize: 36}, viewWindow: 1 },
+          backgroundColor: 'transparent',
+          chartArea:{left:50,top:0,width:'80%',height:'70%'}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    }
+
+    function currentWeather(values, address) {
+      let addressArr = address.split(",");
+      localityHeading.textContent = addressArr[0];
+      addressArr.splice(0, 1);
+      let subAddress = addressArr.join(",");
+      regionCountry.textContent = subAddress;
+      locationTemperature.textContent = values.temperature + "°C";
+      temperatureApparent.textContent = values.temperatureApparent + "°C";
+      cloudCover.textContent = values.cloudCover;
+
+      humidity.textContent = values.humidity;
+      pressureSurfaceLevel.textContent = values.pressureSurfaceLevel;
+      let uv = values.uvIndex;
+      uvIndex.textContent = uv;
+      let uvIndexTextarr = {
+        low: "At this level of UV index, the sun's ultraviolet radiation is minimal, and the risk of harm to your skin and eyes is low. While it's generally safe to be outdoors without protective measures, it's still a good idea to wear sunscreen and sunglasses to shield yourself from any potential UV exposure, especially if you have sensitive skin.",
+        moderate: "With a moderate UV index, there is a moderate risk of harm from unprotected sun exposure. It's important to take precautions such as applying sunscreen with at least SPF 30, wearing sunglasses, and seeking shade during peak sun hours. Prolonged exposure to UV radiation at this level can increase the risk of sunburn and skin damage.",
+        high: "At this level of UV index, the sun's rays are strong, and the risk of skin damage and sunburn is significant. It is crucial to protect yourself by wearing a broad-spectrum sunscreen with a high SPF, covering exposed skin, and staying in the shade as much as possible. Failure to do so can lead to painful sunburn and increase the risk of skin cancer over time.",
+        veryhigh: "The UV index is very high, meaning there is an extreme risk of harm from sun exposure. It is essential to take extra precautions to safeguard your skin and eyes. Apply a high SPF sunscreen before going outside, wear protective clothing, a wide-brimmed hat, and sunglasses with UV protection. Avoid being outdoors during peak sun hours when the UV index is at its highest to minimize the risk of severe sunburn and skin damage.",
+        extreme: "An extreme UV index indicates an exceptionally high risk of harm from the sun's radiation. Direct exposure to the sun without adequate protection can result in severe sunburn, accelerated skin aging, and an increased risk of skin cancer. It is strongly advised to limit outdoor activities during peak sun hours and prioritize protection by using a high SPF sunscreen, wearing protective clothing, and seeking shade whenever possible."
+      };
+      if (uv <= 2) {
+        uvIndexText.textContent = uvIndexTextarr.low;
+      } else if (uv >= 3 && uv <= 5) {
+        uvIndexText.textContent = uvIndexTextarr.moderate;
+      } else if (uv >= 6 && uv <= 7) {
+        uvIndexText.textContent = uvIndexTextarr.high;
+      } else if (uv >= 8 && uv <= 10) {
+        uvIndexText.textContent = uvIndexTextarr.veryhigh;
+      } else {
+        uvIndexText.textContent = uvIndexTextarr.extreme;
+      }
+
+      let visibility = values.visibility;
+      let weatherCode = values.weatherCode;
+      let wd = values.windDirection;
+      windDirection.textContent = wd;
+      windSpeed.textContent = values.windSpeed + " Kmph";
+
+
+    }
+
+    function getWeatherForecast(address) {
+      let up_address = "";
+      for (i of address) {
+        if (i === " ") {
+          up_address = up_address + "%20";
+        } else {
+          up_address = up_address + i;
+        }
+      }
+      address = up_address;
+      const url = 'https://tomorrow-io1.p.rapidapi.com/v4/weather/forecast?location=' + address + '&timesteps=1h&units=metric';
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': '7beec818ebmshb372a833f5b6457p1d12cejsn591dde82abf7',
+          'X-RapidAPI-Host': 'tomorrow-io1.p.rapidapi.com'
+        }
+      };
+
+      try {
+        fetch(url, options)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (jsonData) {
+            console.log("getWeatherForecast Successful")
+            let arrHourWise = jsonData.timelines.hourly;
+            let currentWeatherData = arrHourWise[0].values;
+            currentWeather(currentWeatherData, address);
+            fiveDayTimeline(arrHourWise);
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getWeatherForecast("Bengaluru");
+
+    searchElement.addEventListener("keydown", function (event) {
+
+      let address = searchElement.value;
+      console.log(address);
+      if (event.key === "Enter") {
+        event.preventDefault();
+        getWeatherForecast(address);
+      }
+    });
+
+
+    let nycWeather = document.getElementById("nycWeather");
+    let shangaiWeather = document.getElementById("shangaiWeather");
+    let delhiWeather = document.getElementById("delhiWeather");
+
+    nycWeather.addEventListener("click", function(event) {
+      getWeatherForecast("New-York");
+    });
+    delhiWeather.addEventListener("click", function(event) {
+      getWeatherForecast("Delhi");
+    });
+    shangaiWeather.addEventListener("click", function(event) {
+      getWeatherForecast("Shangai");
+    });
+  </script>
+</body>
+
+</html>
