@@ -11,39 +11,61 @@
 </head>
 
 <style>
+
+  body {
+    padding: 16px;;
+    box-sizing: border-box;
+  }
+
   .main-card {
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(94, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
     padding: 16px;
-    margin: 16px;
     border-radius: 8px;
     height: 52vh;
-    width: 50vw;
+    width: 45vw;
     margin-top: 72px;
     color: white;
+    margin-right: 16px;
   }
 
   .small-card-1 {
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(94, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
     padding: 16px;
-    margin: 16px;
     margin-left: 0px;
     border-radius: 8px;
     height: 52vh;
-    width: 25vw;
+    width: 23vw;
     margin-top: 72px;
     color: white;
+    overflow-y: auto;
+    margin-right: 16px;
   }
 
   .graph-card {
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(94, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
     padding: 16px;
-    margin: 16px;
     border-radius: 8px;
     height: 60vh;
     width: 97vw;
     margin-top: 0px;
     color: white;
+    overflow-x: auto;
   }
+
+  .upper {
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 600px) {
+    .main-card {
+      width: 100vw;
+    }
+
+    .small-card-1 {
+      width: 100vw;
+    }
+  }
+
 </style>
 
 <body>
@@ -80,7 +102,7 @@
     </div>
   </nav>
 
-  <div class="d-flex flex-row">
+  <div class="d-flex flex-row upper">
     <div id="mainCurrent" class="main-card">
       <div class="d-flex">
         <div class="flex-grow-1">
@@ -114,8 +136,8 @@
         </div>
       </div>
     </div>
-    <div class="d-flex flex-row">
-      <div class="small-card-1 text-center">
+    
+    <div class="small-card-1 text-center">
         <img width="75" height="75"
           src="https://img.icons8.com/external-justicon-lineal-justicon/64/FFFFFF/external-uv-index-weather-justicon-lineal-justicon-1.png"
           alt="external-uv-index-weather-justicon-lineal-justicon-1" />
@@ -128,8 +150,8 @@
           wear sunscreen and sunglasses to shield yourself from any potential UV exposure, especially if you have
           sensitive skin.
         </p>
-      </div>
-      <div class="small-card-1 text-center">
+    </div>
+    <div class="small-card-1 text-center">
         <img width="75" height="75" src="https://img.icons8.com/pastel-glyph/64/FFFFFF/wind--v1.png" alt="wind--v1" />
         <h3>Wind Speed</h3>
         <h1 id="windSpeed">-- Kmph</h1>
@@ -137,8 +159,8 @@
         <img width="75" height="75" src="https://img.icons8.com/ios/100/FFFFFF/arrow--v1.png" alt="arrow--v1" />
         <h3>Wind Direction</h3>
         <h1 id="windDirection">---</h1>
-      </div>
     </div>
+    
   </div>
   <hr>
   <div class="graph-card">
